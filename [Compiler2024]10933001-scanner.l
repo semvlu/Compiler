@@ -108,7 +108,6 @@ RETURN ret
     }
 
 
-
 {CLASS} {ECHO; return CLASS;}
 
 {IF} {ECHO; return IF;}
@@ -138,7 +137,7 @@ RETURN ret
 "\n" {yylineno++;}
 [ \t]+ {}
 "\\" {}
-"\'" {}
+"'" {}
 "\"" {}
 "\?" {}
 
@@ -160,7 +159,7 @@ int main(int argc, char* argv[])
             yyin = fp;
     }
     yylex();
-    if (yytext > YYLMAX)
+    if (yyleng > YYLMAX)
         yyerror("Exceed maximum token length!");
     yywrap();
 }
@@ -171,4 +170,7 @@ yyleng: yytext.len
 yyin: det input stream for yylex()
 yyout: det output stream for output macro
 yylineno: cur. input line nr
+yymore()
+yyless(n)
+unput(char)
 */
