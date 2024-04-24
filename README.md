@@ -25,4 +25,4 @@
     - > (larger-than), < (smaller-than), >= (larger-than-or-equal-to), <= (smaller-than-or-equal-to)
     - Escape sequences: ‘\n’, ‘\t’, ‘\\’, ‘\'’, ‘\"’, ‘\?’
 
-[Reference] (https://yummy-request-a1a.notion.site/qv-A-Minimal-Experimental-Language-for-Learning-Compilers-f5a613b4eecf41e890c4560cc065812f)
+[Reference](https://yummy-request-a1a.notion.site/qv-A-Minimal-Experimental-Language-for-Learning-Compilers-f5a613b4eecf41e890c4560cc065812f)
