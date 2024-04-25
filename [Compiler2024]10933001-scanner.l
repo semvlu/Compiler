@@ -101,7 +101,7 @@ RETURN ret
 {INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); ECHO; return INT_NUM;}
 {REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); ECHO; return REAL_NUM;}
 {OPERATOR} {ECHO; return OPERATOR;}
-/*sscanf char not yet def*/ sscanf(yytext, "%c", &(yylval.cVal));
+/*sscanf char not yet def: sscanf(yytext, "%c", &(yylval.cVal)); */
 {ID} {
     strcpy(idTBD, yytext);
     BEGIN ID_IDENTIFICATIO;
