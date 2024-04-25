@@ -72,7 +72,7 @@ RETURN ret
 <ID_IDENTIFICATIO>":" {printf("%s: ID init", idTBD); BEGIN 0;}
 <ID_IDENTIFICATIO>{ASSIGN} {printf("%s: ID assignation", idTBD); BEGIN 0;}
 <ID_IDENTIFICATIO>{OPERATOR} {printf("%s: ID as operand", idTBD); BEGIN 0;} /*ASSIGN still included*/
-<ID_IDENTIFICATIO>"" {BEGIN 0;} ;
+<ID_IDENTIFICATIO>"" {BEGIN 0;} 
 
 {VAR} {ECHO; return VAR;}
 {VAL} {ECHO; return VAL;}
