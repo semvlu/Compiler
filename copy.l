@@ -40,7 +40,7 @@ REAL real
 /* literal constants */
 BOOL_VAL ("true"|"false")
 INT_NUM ((\-)?([0]|[1-9])+[0-9]*)
-REAL_NUM ((\-)?[1-9]+[0-9]*\.[0-9]+)
+REAL_NUM ((\-)?(([0]|[1-9]+[0-9])*)\.[0-9]+)
 CHAR_VAL \'[\\]?.\'
 /* might not need '-' for now */
 
@@ -60,7 +60,7 @@ OPERATOR ({PLUS}|{MINUS}|{MULT}|{DIV}|{ASSIGN}|{EQ}|{NEQ}|{GEQ}|{LEQ}|{GT}|{LT})
 /* id */
 LETTER [_a-zA-Z]
 DIGIT [0-9]
-
+ID {LETTER}({LETTER}|{DIGIT})*
 
 
 CLASS class
@@ -115,7 +115,7 @@ PRINTL println
 {RETURN} {ECHO; printf(" RETURN\n");}
 {PRINTL} {ECHO; printf(" Print Line func\n");}
 
-[a-zA-Z][a-zA-Z0-9]* {ECHO; printf(" ID\n");}
+{ID} {ECHO; printf(" ID\n");}
 
 
 "(" {ECHO;printf(" LRB\n");}
@@ -127,7 +127,7 @@ PRINTL println
 "," {ECHO; printf(" COMMA\n");}
 ";" {ECHO; printf(" SEMICOLON\n");}
 ":" {ECHO; printf(" COLON\n");}
-
+"!" {ECHO; printf(" EXCLAM\n");}
 
 "\n" {ECHO; yylineno++;}
 [ \t]+ {;}
