@@ -5,24 +5,9 @@
 #define YYLMAX 256
 int lnnr = 1;
 char idTBD[256];
-// void yyerror(const char *s) // in YACC
 %}
 
-/*%union {
-*    bool boolVal;
-*    char cVal;
-*    int intVal;
-*    double reVal;
-*    char *strVal;
-*}
-*%token <boolVal> BOOL
-*%token <cVal> CHAR
-*%token <intVal> INT
-*%token <reVal> REAL
-*%token <strVal> STRING
-*
-*right UMINUS
-/* in YACC */
+
 
 /* regexes */
 
@@ -101,7 +86,6 @@ RETURN ret
 {INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); ECHO; return INT_NUM;}
 {REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); ECHO; return REAL_NUM;}
 {OPERATOR} {ECHO; return OPERATOR;}
-/*sscanf char not yet def: sscanf(yytext, "%c", &(yylval.cVal)); */
 {ID} {
     strcpy(idTBD, yytext);
     BEGIN ID_IDENTIFICATIO;
@@ -128,26 +112,24 @@ RETURN ret
 \] {ECHO; return RSB;}
 \{ {ECHO; return LCB;}
 \} {ECHO; return RCB;}
-\, {ECHO; return COMMA}
+\, {ECHO; return COMMA;}
 \; {ECHO; return SEMICOLON;}
-\: {ECHO; return COLON}
-/* assign an id */
+\: {ECHO; return COLON;}
 
 
 "\n" {yylineno++;}
 [ \t]+ {}
-"\\" {return BSLASH}
-"'" {return SQUOTE}
-"\"" {return DQUOTE}
-"\?" {return QUESTION}
+"\\" {return BSLASH;}
+"'" {return SQUOTE;}
+"\"" {return DQUOTE;}
+"\?" {return QUESTION;}
 
 "/*" {yycomment("*/");}
 "//" {yycomment("\n");}
 
 [^ ;\t\n\"\^|]+ {ECHO; return STRING;}
 
-"println" {return PRINTL}
-/* ID, lit constant, or string, w/ \n in grammar*/ 
+"println" {return PRINTL;}
 
 %%
 
