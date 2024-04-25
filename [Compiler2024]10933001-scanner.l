@@ -94,7 +94,7 @@ RETURN ret
 
 {CLASS} {ECHO; return CLASS;}
 
-"if" {ECHO; return IF;}
+{IF} {ECHO; return IF;}
 {ELSE} {ECHO; return ELSE;}
 {FOR} {ECHO; return FOR;}
 {WHILE} {ECHO; return WHILE;}
