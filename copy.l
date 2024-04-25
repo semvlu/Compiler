@@ -39,10 +39,12 @@ REAL real
 
 /* literal constants */
 BOOL_VAL ("true"|"false")
+REAL_NUM ((\-)?([0]|[1-9]+[0-9]*)\.[0-9]+)
+
 INT_NUM ((\-)?([0]|[1-9])+[0-9]*)
-REAL_NUM ((\-)?(([0]|[1-9]+[0-9])*)\.[0-9]+)
-CHAR_VAL \'[\\]?.\'
 /* might not need '-' for now */
+
+CHAR_VAL [!#$%&@^_`~ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ]
 
 PLUS \+
 MINUS \-
@@ -98,6 +100,7 @@ PRINTL println
 {BOOL_VAL} {ECHO;printf(" BOOL_VAL\n");}
 {INT_NUM} {ECHO; printf(" INT_NUM\n");}
 {REAL_NUM} {ECHO;printf(" REAL_NUM\n");}
+{CHAR_VAL} {ECHO; printf(" CHAR_VAL\n");}
 {OPERATOR} {ECHO;printf(" OPERATOR\n"); }
 
 
@@ -127,7 +130,6 @@ PRINTL println
 "," {ECHO; printf(" COMMA\n");}
 ";" {ECHO; printf(" SEMICOLON\n");}
 ":" {ECHO; printf(" COLON\n");}
-"!" {ECHO; printf(" EXCLAM\n");}
 
 "\n" {ECHO; yylineno++;}
 [ \t]+ {;}
