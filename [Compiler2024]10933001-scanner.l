@@ -9,19 +9,19 @@ char idTBD[256];
 %}
 
 /*%union {
-/*    bool boolVal;
-/*    char cVal;
-/*    int intVal;
-/*    double reVal;
-/*    char *strVal;
-/*}
-/*%token <boolVal> BOOL
-/*%token <cVal> CHAR
-/*%token <intVal> INT
-/*%token <reVal> REAL
-/*%token <strVal> STRING
-
-/*right UMINUS
+*    bool boolVal;
+*    char cVal;
+*    int intVal;
+*    double reVal;
+*    char *strVal;
+*}
+*%token <boolVal> BOOL
+*%token <cVal> CHAR
+*%token <intVal> INT
+*%token <reVal> REAL
+*%token <strVal> STRING
+*
+*right UMINUS
 /* in YACC */
 
 /* regexes */
@@ -136,10 +136,10 @@ RETURN ret
 
 "\n" {yylineno++;}
 [ \t]+ {}
-"\\" {}
-"'" {}
-"\"" {}
-"\?" {}
+"\\" {return BSLASH}
+"'" {return SQUOTE}
+"\"" {return DQUOTE}
+"\?" {return QUESTION}
 
 "/*" {yycomment("*/");}
 "//" {yycomment("\n");}
