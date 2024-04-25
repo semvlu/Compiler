@@ -7,8 +7,6 @@ int lnnr = 1;
 char idTBD[256];
 %}
 
-
-
 /* regexes */
 
 /* states */
@@ -71,7 +69,7 @@ RETURN ret
 %%
 <ID_IDENTIFICATIO>":" {printf("%s: ID init", idTBD); BEGIN 0;}
 <ID_IDENTIFICATIO>{ASSIGN} {printf("%s: ID assignation", idTBD); BEGIN 0;}
-<ID_IDENTIFICATIO>{OPERATOR} {printf("%s: ID as operand", idTBD); BEGIN 0;} /*ASSIGN still included*/
+<ID_IDENTIFICATIO>{OPERATOR} {printf("%s: ID as operand", idTBD); BEGIN 0;} 
 <ID_IDENTIFICATIO>"" {BEGIN 0;} 
 
 {VAR} {ECHO; return VAR;}
@@ -86,6 +84,8 @@ RETURN ret
 {INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); ECHO; return INT_NUM;}
 {REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); ECHO; return REAL_NUM;}
 {OPERATOR} {ECHO; return OPERATOR;}
+
+
 {ID} {
     strcpy(idTBD, yytext);
     BEGIN ID_IDENTIFICATIO;
@@ -94,7 +94,7 @@ RETURN ret
 
 {CLASS} {ECHO; return CLASS;}
 
-{IF} {ECHO; return IF;}
+"if" {ECHO; return IF;}
 {ELSE} {ECHO; return ELSE;}
 {FOR} {ECHO; return FOR;}
 {WHILE} {ECHO; return WHILE;}
