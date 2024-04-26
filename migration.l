@@ -137,12 +137,13 @@ PRINTL println
 ":" {ECHO; return COLON;}
 
 
-"\n" {ECHO; yylineno++;}
-[ \t]+ {;}
-"\\" {ECHO; return BSLASH;}
+"\\n" {ECHO; yylineno++;}
+"\\t" {;}
 "'" {ECHO; return SQUOTE;}
 "\"" {ECHO; return DQUOTE;}
-"\?" {ECHO; return QUESTION;}
+"\\?" {ECHO; return QUESTION;}
+"\\\\" {ECHO; return BSLASH;}
+
 
 
 
