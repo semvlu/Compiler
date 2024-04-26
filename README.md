@@ -26,3 +26,19 @@
     - Escape sequences: ‘\n’, ‘\t’, ‘\\’, ‘\'’, ‘\"’, ‘\?’
 
 [Reference](https://yummy-request-a1a.notion.site/qv-A-Minimal-Experimental-Language-for-Learning-Compilers-f5a613b4eecf41e890c4560cc065812f)
+
+Setup
+
+'''
+sudo dpkg --configure -a
+sudo apt-get update
+sudo apt-get install flex bison
+'''
+
+Scanner
+
+'''
+flex <filename>.l
+gcc lex.yy.c
+./a.out <filename>.qv
+'''
