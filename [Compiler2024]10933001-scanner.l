@@ -16,7 +16,7 @@ IF, ELSE, FOR, WHILE, DO, SWITCH, CASE,
 FUNCTION, RETURN,
 LRB, RRB, LSB, RSB, LCB, RCB,
 COMMA, SEMICOLON, COLON,
-BSLASH, SQUOTE, DQUOTE, QUESTION,
+SQUOTE, DQUOTE, QUESTION, BSLASH,
 PRINTL};
 %}
 
@@ -135,16 +135,22 @@ PRINTL println
 ";" {ECHO; printf(" SEMICOLON\n");}
 ":" {ECHO; printf(" COLON\n");}
 
-"\n" {ECHO; yylineno++;}
+"\\n" {yylineno++;}
 [ \t]+ {;}
-"\\" {ECHO; printf(" BSLASH\n");}
 "'" {ECHO; printf(" SQUOTE\n");}
 "\"" {ECHO; printf(" DQUOTE\n");}
-"\?" {ECHO; printf(" QUESTION\n");}
-
+"\\?" {ECHO; printf(" QUESTION\n");}
+"\\\\" {ECHO; printf(" BSLASH\n");}
 
 
 %%
+/*
+\n:check
+': check
+": check
+\?: check
+\\: check
+*/
 
 int main(int argc, char* argv[])
 {
