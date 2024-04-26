@@ -1,0 +1,38 @@
+// qv Sample Program No. 1
+fun main () {              
+    var _1: bool true;
+    var _0: bool false;  
+    val A: real = -0.16473;
+    var b: real = -1.35;
+    var b_1: real = 0.4542;
+    var b_2: real = 43.57;
+    var c: int  = -193;
+    var c_1: int = 2945;
+    val d: char[30] = "je ne parle pas français";
+    var k: char[16] = "@b$^#&%`~hv";
+
+    if (b != A)
+        println(A);
+    else
+        println(b);
+    
+    switch(b){
+        case(1.0):
+            println(k);
+        case(2.0)
+            println(d);
+    }
+
+    do {
+        b -= 3.2;
+    } while (b > -4000.63432)
+
+    if (c == c_1)
+        println("c eq c_1");
+
+    while(true)
+        println(")(][}{?,: \t");
+
+    
+    ret;              
+}

@@ -1,0 +1,24 @@
+fun main{
+    var i_still_have_no_idea_why_an_identifier_have_to_be_this_long_after_a_professor_tell_us_not_to_use_abbreviation_for_a_variable_or_a_function: int 10;
+    val 1_33: bool = true;
+    val A: real = -0.16473;
+    var b: real = -1.35;
+    var b_1: real = 0.4542;
+    var b_2: real = 43.57;
+    var c: int  = -193;
+    var c_1: int = 2945;
+
+    do {
+        b -= 3.2;
+    } while (b > -4000.63432)
+
+    if (c <= c_1)
+        c += 9.4;
+    if (c == c_1)
+        println("c eq c_1");
+
+    while(true)
+        c += 1;
+
+    
+}
