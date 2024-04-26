@@ -136,7 +136,7 @@ PRINTL println
 ":" {ECHO; printf(" COLON\n");}
 
 "\\n" {yylineno++;}
-[ \t]+ {;}
+"\\t" {;}
 "'" {ECHO; printf(" SQUOTE\n");}
 "\"" {ECHO; printf(" DQUOTE\n");}
 "\\?" {ECHO; printf(" QUESTION\n");}
@@ -144,13 +144,6 @@ PRINTL println
 
 
 %%
-/*
-\n:check
-': check
-": check
-\?: check
-\\: check
-*/
 
 int main(int argc, char* argv[])
 {

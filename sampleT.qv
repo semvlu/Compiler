@@ -30,9 +30,10 @@ fun main () {
     if (c == c_1)
         println("c eq c_1");
 
-    while(true)
-        println(")(][}{?,: \t");
-
+    while(true){
+        println(")(][}{,:\t");
+        println("\n\t\?\\");
+    }
     
     ret;              
 }
