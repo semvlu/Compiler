@@ -44,7 +44,6 @@ BOOL_VAL ("true"|"false")
 REAL_NUM ((\-)?([0]|[1-9]+[0-9]*)\.[0-9]+)
 INT_NUM ((\-)?([0]|[1-9])+[0-9]*)
 /* might not need '-' for now */
-
 CHAR_VAL [!#$%&@^_`~ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ]
 
 /* Operators */
@@ -59,13 +58,13 @@ GEQ ">="
 LEQ "<="
 GT ">"
 LT "<"
-
 OPERATOR ({PLUS}|{MINUS}|{MULT}|{DIV}|{ASSIGN}|{EQ}|{NEQ}|{GEQ}|{LEQ}|{GT}|{LT})
 
 /* id */
 LETTER [_a-zA-Z]
 DIGIT [0-9]
 ID {LETTER}({LETTER}|{DIGIT})*
+
 
 
 CLASS class
@@ -93,59 +92,88 @@ PRINTL println
 <SCMNT>. {;}
 
 
-{VAR} {ECHO; printf(" VAR\n");}
-{VAL} {ECHO; printf(" VAL\n");}
+{VAR} {ECHO; return VAR;}
+{VAL} {ECHO; return VAL;}
 
-{BOOL} {ECHO; printf(" BOOL\n");}
-{CHAR} {ECHO; printf(" CHAR\n");}
-{INT} {ECHO; printf(" INT\n");}
-{REAL} {ECHO; printf(" REAL\n");}
+{BOOL} {ECHO; return BOOL;}
+{CHAR} {ECHO; return CHAR;}
+{INT} {ECHO; return INT;}
+{REAL} {ECHO; return REAL;}
 
-{BOOL_VAL} {ECHO; printf(" BOOL_VAL\n");}
-{INT_NUM} {ECHO; printf(" INT_NUM\n");}
-{REAL_NUM} {ECHO; printf(" REAL_NUM\n");}
-{CHAR_VAL} {ECHO; printf(" CHAR_VAL\n");}
+{BOOL_VAL} {ECHO; return BOOL_VAL;}
+{INT_NUM} {ECHO; return INT_NUM;}
+{REAL_NUM} {ECHO; return REAL_NUM;}
+{CHAR_VAL} {ECHO; return CHAR_VAL;}
 
-{OPERATOR} {ECHO; printf(" OPERATOR\n"); }
-
-{CLASS} {ECHO; printf(" CLASS\n");}
-
-{IF} {ECHO; printf(" IF\n");}
-{ELSE} {ECHO; printf(" ELSE\n");}
-{FOR} {ECHO; printf(" FOR\n");}
-{WHILE} {ECHO; printf(" WHILE\n"); }
-{DO} {ECHO; printf(" DO\n");}
-{SWITCH} {ECHO; printf(" SWITCH\n");}
-{CASE} {ECHO; printf(" CASE\n");}
-
-{FUNCTION} {ECHO; printf(" FUNCTION\n");}
-{RETURN} {ECHO; printf(" RETURN\n");}
-{PRINTL} {ECHO; printf(" Print Line func\n");}
-
-{ID} {ECHO; printf(" ID\n");}
+{OPERATOR} {ECHO; return OPERATOR;}
 
 
-"(" {ECHO;printf(" LRB\n");}
-")" {ECHO;printf(" RRB\n");}
-"[" {ECHO;printf(" LSB\n");}
-"]" {ECHO;printf(" RSB\n");}
-"{" {ECHO;printf(" LCB\n");}
-"}" {ECHO;printf(" RCB\n");}
-"," {ECHO; printf(" COMMA\n");}
-";" {ECHO; printf(" SEMICOLON\n");}
-":" {ECHO; printf(" COLON\n");}
+
+{CLASS} {ECHO; return CLASS;}
+
+{IF} {ECHO; return IF;}
+{ELSE} {ECHO; return ELSE;}
+{FOR} {ECHO; return FOR;}
+{WHILE} {ECHO; return WHILE;}
+{DO} {ECHO; return DO;}
+{SWITCH} {ECHO; return SWITCH;}
+{CASE} {ECHO; return CASE;}
+
+{FUNCTION} {ECHO; return FUNCTION;}
+{RETURN} {ECHO; return RETURN;}
+{PRINTL} {ECHO; return PRINTL;}
+
+{ID} {ECHO; return ID;}
+
+
+"(" {ECHO; return LRB;}
+")" {ECHO; return RRB;}
+"[" {ECHO; return LSB;}
+"]" {ECHO; return RSB;}
+"{" {ECHO; return LCB;}
+"}" {ECHO; return RCB;}
+"," {ECHO; return COMMA;}
+";" {ECHO; return SEMICOLON;}
+":" {ECHO; return COLON;}
+
 
 "\n" {ECHO; yylineno++;}
 [ \t]+ {;}
-"\\" {ECHO; printf(" BSLASH\n");}
-"'" {ECHO; printf(" SQUOTE\n");}
-"\"" {ECHO; printf(" DQUOTE\n");}
-"\?" {ECHO; printf(" QUESTION\n");}
+"\\" {ECHO; return BSLASH;}
+"'" {ECHO; return SQUOTE;}
+"\"" {ECHO; return DQUOTE;}
+"\?" {ECHO; return QUESTION;}
 
 
 
 %%
+/* %x ID_IDENTIFICATIO: TBD
+ * Rules incl.
+<ID_IDENTIFICATIO>":" {printf("%s: ID init", idTBD); BEGIN 0;}
+<ID_IDENTIFICATIO>{ASSIGN} {printf("%s: ID assignation", idTBD); BEGIN 0;}
+<ID_IDENTIFICATIO>{OPERATOR} {printf("%s: ID as operand", idTBD); BEGIN 0;} 
+<ID_IDENTIFICATIO>"" {BEGIN 0;} 
+*/
 
+
+/* TB Modify
+{BOOL_VAL} {sscanf(yytext, "%d", &(yylval.boolVal)); ECHO; return BOOL_VAL;}
+{INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); ECHO; return INT_NUM;}
+{REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); ECHO; return REAL_NUM;}
+{CHAR_VAL} {sscanf(yytext, "%c", &(yylval.cVal)); ECHO; return CHAR_VAL;}
+*/
+
+/* TB Modify
+{ID} {
+    strcpy(idTBD, yytext);
+    BEGIN ID_IDENTIFICATIO;
+    }
+*/
+
+/* Not able to use rn: Undefined reference to yycomment
+ * "/*" yycomment("\*\/");
+ * "//" yycomment("\n");
+*/
 int main(int argc, char* argv[])
 {
     if(argc > 1) {
@@ -154,7 +182,9 @@ int main(int argc, char* argv[])
             yyin = fp;
     }
     yylex();
-
+    // Undefined reference to yyerror
+    if(yyleng > YYLMAX)
+        yyerror("Exceed maxmimum token length!\n");
     yywrap();
 }
 
