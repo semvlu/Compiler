@@ -29,16 +29,16 @@
 
 Setup
 
-'''
+```
 sudo dpkg --configure -a
 sudo apt-get update
 sudo apt-get install flex bison
-'''
+```
 
 Scanner
 
-'''
+```
 flex <filename>.l
 gcc lex.yy.c
 ./a.out <filename>.qv
-'''
+```
