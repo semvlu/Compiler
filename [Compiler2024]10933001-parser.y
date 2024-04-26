@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <y.tab.h>
-#define YYLMAX 256
+#define YYLMAX 100
 extern int lnnr = 1;
 extern char idTBD[256];
 void yyerror(const char *s)
