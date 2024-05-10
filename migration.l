@@ -182,7 +182,8 @@ int main(int argc, char* argv[])
         if (fp)
             yyin = fp;
     }
-    yylex();
+    while (yylex());
+
     // Undefined reference to yyerror
     if(yyleng > YYLMAX)
         yyerror("Exceed maxmimum token length!\n");
