@@ -182,7 +182,8 @@ int main(int argc, char* argv[])
         if (fp)
             yyin = fp;
     }
-    while (yylex());
+    int tk;
+    while (tk = yylex());
 
     // Undefined reference to yyerror
     if(yyleng > YYLMAX)
