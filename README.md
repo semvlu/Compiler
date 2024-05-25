@@ -39,6 +39,6 @@ Scanner
 
 ```
 flex <filename>.l
-gcc lex.yy.c
+gcc lex.yy.c -lfl
 ./a.out <filename>.qv
 ```
