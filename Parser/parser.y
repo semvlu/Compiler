@@ -4,12 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include "y.tab.h"
-#include "ASTSymTab.h"
-void yyerror(const char *s);
-extern int yylineno; // from lex
-extern int yylex();
-extern int yyparse();
+#include "parser.tab.h"
+#include "parser.h"
+
+
 %}
 
 %union {
@@ -55,7 +53,7 @@ block: '{' stmts '}';
 decl: VAR ID COLON type SEMICOLON {}
     | VAL ID COLON type SEMICOLON {}
     | VAR ID COLON type '=' literal SEMICOLON { $$ = newast }
-    | VAL ID COLON type '=' literal  SEMICOLON { $$ = $6; }
+    | VAL ID COLON type '=' literal  SEMICOLON {}
     ;
 
 arrDecl: VAR ID COLON type dims SEMICOLON {} 
@@ -100,10 +98,10 @@ open_stmt: IF '(' expr ')' stmt
 expr: intExpr
     | reExpr
     | strExpr
+    | ID SEMICOLON {}
     ;
 
-intExpr: ID SEMICOLON { $$ = $1; }
-    | intExpr '+' intExpr { $$ = $1 + $3; }
+intExpr: intExpr '+' intExpr { $$ = $1 + $3; }
     | intExpr '-' intExpr { $$ = $1 - $3; }
     | intExpr '*' intExpr { $$ = $1 * $3; }
     | intExpr '/' intExpr {
@@ -118,8 +116,7 @@ intExpr: ID SEMICOLON { $$ = $1; }
     ;
 
 
-reExpr: ID SEMICOLON { $$ = $1; }
-    | reExpr '+' reExpr { $$ = $1 + $3; }
+reExpr: reExpr '+' reExpr { $$ = $1 + $3; }
     | reExpr '-' reExpr { $$ = $1 - $3; }
     | reExpr '*' reExpr { $$ = $1 * $3; }
     | reExpr '/' reExpr {
@@ -137,9 +134,7 @@ double_coercion: REAL_NUM { $$ = $1; }
     ;
 
 // BOOL, CHAR, STRING
-strExpr: ID SEMICOLON { $$ = $1; }
-    | BOOL_VAL SEMICOLON { $$ = $1; }
-    | CHAR_VAL SEMICOLON { $$ = $1; }
+strExpr: BOOL_VAL SEMICOLON { $$ = $1; }
     | STRING SEMICOLON { $$ = $1; }
     ;
 return: RETURN expr SEMICOLON

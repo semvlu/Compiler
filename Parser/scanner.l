@@ -2,23 +2,18 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "y.tab.h"
+#include "parser.tab.h"
 #define YYLMAX 100
 int lnnr = 1;
 char idTBD[256];
-enum TOKEN {VAR, VAL, BOOL, CHAR, INT, REAL, 
-BOOL_VAL, INT_NUM, REAL_NUM, CHAR_VAL, STRING
+
+enum TOKEN {
 PLUS, MINUS, MULT, DIV,
-ASSIGN, EQ, NEQ, GEQ, LEQ, GT, LT, OPERATOR,
+ASSIGN, OPERATOR,
 LETTER, DIGIT,
-ID,
-CLASS,
-IF, ELSE, FOR, WHILE, DO, SWITCH, CASE,
-FUNCTION, RETURN,
 LRB, RRB, LSB, RSB, LCB, RCB,
-COMMA, SEMICOLON, COLON,
 BSLASH, SQUOTE, DQUOTE, QUESTION,
-PRINTL};
+};
 %}
 
 /* regexes */
@@ -100,12 +95,6 @@ PRINTL println
 {INT} {ECHO; return INT;}
 {REAL} {ECHO; return REAL;}
 
-{BOOL_VAL} {yylval.str = strsave(yytext); return BOOL_VAL;}
-{INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); return INT_NUM;}
-{REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); return REAL_NUM;}
-"'" (\w|\W) "'" { yylval.string = strsave(yytext + 1); return CHAR_VAL; }
-"\"" (\w|\W)* "\""  { yylval.string = strsave(yytext + 1); return STRING; }
-{ID} { yylval.str = strsave(yytext); return ID; }
 
 {OPERATOR} {ECHO; return OPERATOR;}
 
@@ -143,6 +132,14 @@ PRINTL println
 "\"" {ECHO; return DQUOTE;}
 "\\?" {ECHO; return QUESTION;}
 "\\\\" {ECHO; return BSLASH;}
+
+
+{BOOL_VAL} {yylval.str = strsave(yytext); return BOOL_VAL;}
+{INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); return INT_NUM;}
+{REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); return REAL_NUM;}
+"'" (\w|\W) "'" { yylval.str = strsave(yytext + 1); return CHAR_VAL; }
+"\"" (\w|\W)* "\""  { yylval.str = strsave(yytext + 1); return STRING; }
+{ID} { yylval.str = strsave(yytext); return ID; }
 
 %%
 /* %x ID_IDENTIFICATIO: TBD
