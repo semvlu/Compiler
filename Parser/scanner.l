@@ -100,13 +100,12 @@ PRINTL println
 {INT} {ECHO; return INT;}
 {REAL} {ECHO; return REAL;}
 
-{BOOL_VAL} {sscanf(yytext, "%d", &(yylval.boolVal)); return BOOL_VAL;}
+{BOOL_VAL} {yylval.str = strsave(yytext); return BOOL_VAL;}
 {INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); return INT_NUM;}
 {REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); return REAL_NUM;}
-yylval.reVal = atof(yytext); return REAL_NUM;
 "'" (\w|\W) "'" { yylval.string = strsave(yytext + 1); return CHAR_VAL; }
 "\"" (\w|\W)* "\""  { yylval.string = strsave(yytext + 1); return STRING; }
-{ID} { yylval.string = strsave(yytext); return ID; }
+{ID} { yylval.str = strsave(yytext); return ID; }
 
 {OPERATOR} {ECHO; return OPERATOR;}
 
