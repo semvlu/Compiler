@@ -1,23 +1,17 @@
-// Symbol table & AST TBD
-
 %{
 #include <stdio.h>
 #include <stdlib.h>
 #include "parser.tab.h"
 #include "parser.h"
-#include "symTabAlt.h"
+#include "symTab.h"
 
 
 %}
 
 %union {
-    struct ast *a;
     int intVal;
     double reVal;
     char *str;
-    struct symbol *s;		/* which symbol */
-    struct symlist *sl;
-    int fn;
 }
 %token VAR VAL // Declaration
 %token BOOL INT REAL CHAR // Type
@@ -41,7 +35,7 @@
 
 // %start /* non terminal */
 %type <str> strExpr
-%type <intVal> intExpr, dims
+%type <intVal> intExpr dims
 %type <reVal> reExpr
 %type <a> prog block decl arrDecl
 %type <reVal> double_coercion
