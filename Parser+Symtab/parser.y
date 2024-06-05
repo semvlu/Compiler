@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "parser.tab.h"
 #include "parser.h"
-#include "symTabAlt.c"
+#include "symTabAlt.h"
 
 
 %}
