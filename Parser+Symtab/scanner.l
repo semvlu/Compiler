@@ -137,8 +137,8 @@ PRINTL println
 {BOOL_VAL} {yylval.str = strsave(yytext); return BOOL_VAL;}
 {INT_NUM} {sscanf(yytext, "%d", &(yylval.intVal)); return INT_NUM;}
 {REAL_NUM} {sscanf(yytext, "%lf", &(yylval.reVal)); return REAL_NUM;}
-"'" (\w|\W) "'" { yylval.str = strsave(yytext + 1); return CHAR_VAL; }
-"\"" (\w|\W)* "\""  { yylval.str = strsave(yytext + 1); return STRING; }
+"'"(.)"'" { yylval.str = strsave(yytext + 1); return CHAR_VAL; }
+"\""(.)*"\""  { yylval.str = strsave(yytext + 1); return STRING; }
 {ID} { yylval.str = strsave(yytext); return ID; }
 
 %%
