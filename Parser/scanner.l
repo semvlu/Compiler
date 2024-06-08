@@ -6,6 +6,7 @@
 #define YYLMAX 100
 int lnnr = 1;
 char idTBD[256];
+char* strsave(const char *s);
 
 enum TOKEN {
 PLUS, MINUS, MULT, DIV,
@@ -22,6 +23,7 @@ BSLASH, SQUOTE, DQUOTE, QUESTION,
 /* %x <state-name>: set a state, default 0/INITIAL
 goto a state using: BEGIN <state-name> */
 /* need to set up rules for a state in %% %% */
+%option noyywrap
 %x SCMNT
 %x MULCMNT
 
@@ -169,6 +171,16 @@ PRINTL println
  * "/*" yycomment("\*\/");
  * "//" yycomment("\n");
 */
+
+char* strsave(const char *s)
+{
+    if (s == 0)
+        return 0;
+    char *p = (char*)malloc(strlen(s) + 1);
+    strcpy(p, s);
+    return p;
+}
+
 int main(int argc, char* argv[])
 {
     if(argc > 1) {
