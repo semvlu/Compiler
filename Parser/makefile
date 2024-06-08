@@ -3,16 +3,16 @@ YACC=bison
 CC=gcc
 OBJECT=main
 
-$(OBJECT): lex.yy.o yacc.tab.o main.o
-		$(CC) main.o lex.yy.o yacc.tab.o -o $(OBJECT)
+$(OBJECT): lex.yy.o parser.tab.o main.o
+		$(CC) main.o lex.yy.o parser.tab.o -o $(OBJECT)
 
-lex.yy.o: lex.yy.c yacc.tab.h parser.h
+lex.yy.o: lex.yy.c parser.tab.h parser.h
 		$(CC) -c lex.yy.c
 
-yacc.tab.o: yacc.tab.c parser.h
-		$(CC) -c yacc.tab.c
+parser.tab.o: parser.tab.c parser.h
+		$(CC) -c parser.tab.c
 
-yacc.tab.c yacc.tab.h: parser.y
+parser.tab.c parser.tab.h: parser.y
 		$(YACC) -d parser.y
 
 lex.yy.c: scanner.l
@@ -22,5 +22,5 @@ main.o: main.c
 		$(CC) -c main.c
 
 clean:
-		@del -f $(OBJECT) *.o lex.yy.c yacc.tab.h yacc.tab.c main.exe
+		@del -f $(OBJECT) *.o lex.yy.c parser.tab.h parser.tab.c main.exe
 

@@ -105,7 +105,7 @@ intExpr: intExpr '+' intExpr { $$ = $1 + $3; }
             YYABORT;
         } else $$ = $1 / $3; 
         }
-    | '(' intExpr ')' SEMICOLON {$$ = $2}
+    | '(' intExpr ')' SEMICOLON {$$ = $2; }
     | '-' intExpr %prec UMINUS {$$ = - $2; }
     | INT_NUM SEMICOLON { $$ = $1; }
     ;
@@ -120,7 +120,7 @@ reExpr: reExpr '+' reExpr { $$ = $1 + $3; }
             YYABORT;
         } else $$ = $1 / $3; 
         }
-    | '(' reExpr ')' SEMICOLON { $$ = $2}
+    | '(' reExpr ')' SEMICOLON { $$ = $2; }
     | '-' reExpr %prec UMINUS { $$ = - $2; }
     | double_coercion SEMICOLON { $$ = $1; }
     ;

@@ -1237,7 +1237,7 @@ yyreduce:
 
   case 26: /* intExpr: '(' intExpr ')' SEMICOLON  */
 #line 108 "parser.y"
-                                {(yyval.intVal) = (yyvsp[-2].intVal)}
+                                {(yyval.intVal) = (yyvsp[-2].intVal); }
 #line 1242 "parser.tab.c"
     break;
 
@@ -1284,7 +1284,7 @@ yyreduce:
 
   case 33: /* reExpr: '(' reExpr ')' SEMICOLON  */
 #line 123 "parser.y"
-                               { (yyval.reVal) = (yyvsp[-2].reVal)}
+                               { (yyval.reVal) = (yyvsp[-2].reVal); }
 #line 1289 "parser.tab.c"
     break;
 
