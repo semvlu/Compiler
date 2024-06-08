@@ -71,13 +71,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
 #include "parser.tab.h"
 #include "parser.h"
 
 
 
-#line 81 "parser.tab.c"
+#line 80 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -553,10 +552,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    50,    50,    51,    77,    78,    80,    81,    83,    85,
-      86,    87,    88,    89,    90,    91,    93,    94,    98,    99,
-     100,   101,   104,   105,   106,   107,   113,   114,   115,   119,
-     120,   121,   122,   128,   129,   130,   132,   133,   137,   138
+       0,    45,    45,    46,    72,    73,    75,    76,    78,    80,
+      81,    82,    83,    84,    85,    86,    88,    89,    93,    94,
+      95,    96,    99,   100,   101,   102,   108,   109,   110,   114,
+     115,   116,   117,   123,   124,   125,   127,   128,   132,   133
 };
 #endif
 
@@ -1178,155 +1177,155 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* stmts: stmts stmt  */
-#line 77 "parser.y"
+#line 72 "parser.y"
                   {}
-#line 1184 "parser.tab.c"
+#line 1183 "parser.tab.c"
     break;
 
   case 10: /* matched_stmt: ID '=' expr  */
-#line 86 "parser.y"
+#line 81 "parser.y"
                   {}
-#line 1190 "parser.tab.c"
+#line 1189 "parser.tab.c"
     break;
 
   case 11: /* matched_stmt: ID '[' expr ']' '=' expr  */
-#line 87 "parser.y"
+#line 82 "parser.y"
                                {}
-#line 1196 "parser.tab.c"
+#line 1195 "parser.tab.c"
     break;
 
   case 12: /* matched_stmt: PRINTL '(' expr ')' SEMICOLON  */
-#line 88 "parser.y"
+#line 83 "parser.y"
                                     {}
-#line 1202 "parser.tab.c"
+#line 1201 "parser.tab.c"
     break;
 
   case 21: /* expr: ID SEMICOLON  */
-#line 101 "parser.y"
+#line 96 "parser.y"
                    {}
-#line 1208 "parser.tab.c"
+#line 1207 "parser.tab.c"
     break;
 
   case 22: /* intExpr: intExpr '+' intExpr  */
-#line 104 "parser.y"
+#line 99 "parser.y"
                              { (yyval.intVal) = (yyvsp[-2].intVal) + (yyvsp[0].intVal); }
-#line 1214 "parser.tab.c"
+#line 1213 "parser.tab.c"
     break;
 
   case 23: /* intExpr: intExpr '-' intExpr  */
-#line 105 "parser.y"
+#line 100 "parser.y"
                           { (yyval.intVal) = (yyvsp[-2].intVal) - (yyvsp[0].intVal); }
-#line 1220 "parser.tab.c"
+#line 1219 "parser.tab.c"
     break;
 
   case 24: /* intExpr: intExpr '*' intExpr  */
-#line 106 "parser.y"
+#line 101 "parser.y"
                           { (yyval.intVal) = (yyvsp[-2].intVal) * (yyvsp[0].intVal); }
-#line 1226 "parser.tab.c"
+#line 1225 "parser.tab.c"
     break;
 
   case 25: /* intExpr: intExpr '/' intExpr  */
-#line 107 "parser.y"
+#line 102 "parser.y"
                           {
         if((yyvsp[0].intVal) == 0) {
             yyerror("Error: Divisor cannot be zero!");
             YYABORT;
         } else (yyval.intVal) = (yyvsp[-2].intVal) / (yyvsp[0].intVal); 
         }
-#line 1237 "parser.tab.c"
+#line 1236 "parser.tab.c"
     break;
 
   case 26: /* intExpr: '(' intExpr ')' SEMICOLON  */
-#line 113 "parser.y"
+#line 108 "parser.y"
                                 {(yyval.intVal) = (yyvsp[-2].intVal)}
-#line 1243 "parser.tab.c"
+#line 1242 "parser.tab.c"
     break;
 
   case 27: /* intExpr: '-' intExpr  */
-#line 114 "parser.y"
+#line 109 "parser.y"
                                {(yyval.intVal) = - (yyvsp[0].intVal); }
-#line 1249 "parser.tab.c"
+#line 1248 "parser.tab.c"
     break;
 
   case 28: /* intExpr: INT_NUM SEMICOLON  */
-#line 115 "parser.y"
+#line 110 "parser.y"
                         { (yyval.intVal) = (yyvsp[-1].intVal); }
-#line 1255 "parser.tab.c"
+#line 1254 "parser.tab.c"
     break;
 
   case 29: /* reExpr: reExpr '+' reExpr  */
-#line 119 "parser.y"
+#line 114 "parser.y"
                           { (yyval.reVal) = (yyvsp[-2].reVal) + (yyvsp[0].reVal); }
-#line 1261 "parser.tab.c"
+#line 1260 "parser.tab.c"
     break;
 
   case 30: /* reExpr: reExpr '-' reExpr  */
-#line 120 "parser.y"
+#line 115 "parser.y"
                         { (yyval.reVal) = (yyvsp[-2].reVal) - (yyvsp[0].reVal); }
-#line 1267 "parser.tab.c"
+#line 1266 "parser.tab.c"
     break;
 
   case 31: /* reExpr: reExpr '*' reExpr  */
-#line 121 "parser.y"
+#line 116 "parser.y"
                         { (yyval.reVal) = (yyvsp[-2].reVal) * (yyvsp[0].reVal); }
-#line 1273 "parser.tab.c"
+#line 1272 "parser.tab.c"
     break;
 
   case 32: /* reExpr: reExpr '/' reExpr  */
-#line 122 "parser.y"
+#line 117 "parser.y"
                         {
         if((yyvsp[0].reVal) == 0.0) {
             yyerror("Error: Divisor cannot be zero!");
             YYABORT;
         } else (yyval.reVal) = (yyvsp[-2].reVal) / (yyvsp[0].reVal); 
         }
-#line 1284 "parser.tab.c"
+#line 1283 "parser.tab.c"
     break;
 
   case 33: /* reExpr: '(' reExpr ')' SEMICOLON  */
-#line 128 "parser.y"
+#line 123 "parser.y"
                                { (yyval.reVal) = (yyvsp[-2].reVal)}
-#line 1290 "parser.tab.c"
+#line 1289 "parser.tab.c"
     break;
 
   case 34: /* reExpr: '-' reExpr  */
-#line 129 "parser.y"
+#line 124 "parser.y"
                               { (yyval.reVal) = - (yyvsp[0].reVal); }
-#line 1296 "parser.tab.c"
+#line 1295 "parser.tab.c"
     break;
 
   case 35: /* reExpr: double_coercion SEMICOLON  */
-#line 130 "parser.y"
+#line 125 "parser.y"
                                 { (yyval.reVal) = (yyvsp[-1].reVal); }
-#line 1302 "parser.tab.c"
+#line 1301 "parser.tab.c"
     break;
 
   case 36: /* double_coercion: REAL_NUM  */
-#line 132 "parser.y"
+#line 127 "parser.y"
                           { (yyval.reVal) = (yyvsp[0].reVal); }
-#line 1308 "parser.tab.c"
+#line 1307 "parser.tab.c"
     break;
 
   case 37: /* double_coercion: INT_NUM  */
-#line 133 "parser.y"
+#line 128 "parser.y"
               { (yyval.reVal) = (double)(yyvsp[0].intVal); }
-#line 1314 "parser.tab.c"
+#line 1313 "parser.tab.c"
     break;
 
   case 38: /* strExpr: BOOL_VAL SEMICOLON  */
-#line 137 "parser.y"
+#line 132 "parser.y"
                             { (yyval.str) = (yyvsp[-1].str); }
-#line 1320 "parser.tab.c"
+#line 1319 "parser.tab.c"
     break;
 
   case 39: /* strExpr: STRING SEMICOLON  */
-#line 138 "parser.y"
+#line 133 "parser.y"
                        { (yyval.str) = (yyvsp[-1].str); }
-#line 1326 "parser.tab.c"
+#line 1325 "parser.tab.c"
     break;
 
 
-#line 1330 "parser.tab.c"
+#line 1329 "parser.tab.c"
 
       default: break;
     }
@@ -1519,7 +1518,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 142 "parser.y"
+#line 137 "parser.y"
 
 
 void yyerror(const char *s) { fprintf(stderr, "%s\n", s); return 0;}

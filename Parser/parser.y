@@ -3,7 +3,6 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
 #include "parser.tab.h"
 #include "parser.h"
 
@@ -11,13 +10,9 @@
 %}
 
 %union {
-    struct ast *a;
     int intVal;
     double reVal;
     char *str;
-    struct symbol *s;		/* which symbol */
-    struct symlist *sl;
-    int fn;
 }
 %token VAR VAL // Declaration
 %token BOOL INT REAL CHAR // Type
@@ -41,9 +36,9 @@
 
 // %start /* non terminal */
 %type <str> strExpr
-%type <intVal> intExpr
+%type <intVal> intExpr dims
 %type <reVal> reExpr
-%type <a> prog block decl arrDecl
+%type prog block decl arrDecl
 %type <reVal> double_coercion
 
 %%
@@ -52,13 +47,13 @@ block: '{' stmts '}';
 
 decl: VAR ID COLON type SEMICOLON {}
     | VAL ID COLON type SEMICOLON {}
-    | VAR ID COLON type '=' literal SEMICOLON { $$ = newast }
+    | VAR ID COLON type '=' literal SEMICOLON {}
     | VAL ID COLON type '=' literal  SEMICOLON {}
     ;
 
 arrDecl: VAR ID COLON type dims SEMICOLON {} 
-dims: dims '[' intExpr ']'
-    | %empty
+dims: dims '[' intExpr ']' {$$ = $3;}
+    | %empty {}
     ;
 
 literal: BOOL_VAL 
