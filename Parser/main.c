@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
         yyin = fopen(argv[1], "r");
     yyout = fopen("output.txt", "w");
     if(!yyout) {
-        fprintf(stderr, "Error: output could not be opened!");
+        fprintf(stderr, "Error: output could not be opened!\n");
         return 1;
     }
     yyparse();
