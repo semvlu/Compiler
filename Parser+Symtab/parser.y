@@ -7,7 +7,6 @@
 
 
 %}
-
 %union {
     int intVal;
     double reVal;
@@ -21,7 +20,11 @@
 %token FUNCTION RETURN
 %token COMMA SEMICOLON COLON
 %token PRINTL
-
+%token PLUS, MINUS, MULT, DIV,
+ASSIGN, OPERATOR,
+LETTER, DIGIT,
+LRB, RRB, LSB, RSB, LCB, RCB,
+BSLASH, SQUOTE, DQUOTE, QUESTION
 
 %token <str> BOOL_VAL CHAR_VAL STRING
 %token <intVal> INT_NUM
@@ -37,10 +40,8 @@
 %type <str> strExpr
 %type <intVal> intExpr dims
 %type <reVal> reExpr
-%type <a> prog block decl arrDecl
+%type prog block decl arrDecl
 %type <reVal> double_coercion
-
-%type <a> matched_stmt
 
 %%
 prog: FUNCTION ID block;
