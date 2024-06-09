@@ -22,7 +22,11 @@
 %token FUNCTION RETURN
 %token COMMA SEMICOLON COLON
 %token PRINTL
-
+%token PLUS, MINUS, MULT, DIV,
+ASSIGN, OPERATOR,
+LETTER, DIGIT,
+LRB, RRB, LSB, RSB, LCB, RCB,
+BSLASH, SQUOTE, DQUOTE, QUESTION
 
 %token <str> BOOL_VAL CHAR_VAL STRING
 %token <intVal> INT_NUM
@@ -40,15 +44,15 @@
 %type <reVal> reExpr
 %type prog block decl arrDecl
 %type <reVal> double_coercion
-
+%nonassoc IFX ELSE
 %%
-prog: FUNCTION ID block;
-block: '{' stmts '}';
+prog: FUNCTION ID LRB RRB block;
+block: LCB stmts RCB;
 
 decl: VAR ID COLON type SEMICOLON {}
     | VAL ID COLON type SEMICOLON {}
-    | VAR ID COLON type '=' literal SEMICOLON {}
-    | VAL ID COLON type '=' literal  SEMICOLON {}
+    | VAR ID COLON type ASSIGN literal SEMICOLON {}
+    | VAL ID COLON type ASSIGN literal  SEMICOLON {}
     ;
 
 arrDecl: VAR ID COLON type dims SEMICOLON {} 
@@ -66,29 +70,25 @@ literal: BOOL_VAL
 type: BOOL { printf("BOOL type\n"); }
     | CHAR { printf("CHAR type\n"); }
     | INT { printf("INT type\n");}
-    | REAL { printf("REALtype\n");}
+    | REAL { printf("REAL type\n");}
     ;
 
 stmts: stmts stmt {}
-    | %empty
+    | stmt
     ;
-stmt: matched_stmt
-    | open_stmt
-    ;
-matched_stmt: IF '(' expr ')' matched_stmt ELSE matched_stmt 
+stmt: IF '(' expr ')' stmt %prec IFX 
+    | IF '(' expr ')' stmt ELSE stmt 
         // { $$ = newflow(pp,'I', $3, $5, $7); }
     | expr
-    | ID '=' expr {}
-    | ID '[' expr ']' '=' expr {}
+    | ID ASSIGN expr {}
+    | ID '[' expr ']' ASSIGN expr {}
     | PRINTL '(' expr ')' SEMICOLON {}
     | WHILE '(' expr ')' stmt // { $$ = newflow(pp, 'W', $3, $5, NULL); }
     | DO stmt WHILE '(' expr ')' SEMICOLON // { $$ = newflow(pp, 'W', $5, $2, NULL);}
     | block 
+    | decl 
+
     ;
-open_stmt: IF '(' expr ')' stmt
-    |IF '(' expr ')' matched_stmt ELSE open_stmt
-     // { $$ = newflow(pp, 'I', $3, $5, NULL); }
-    ;    
 
 expr: intExpr
     | reExpr
@@ -106,7 +106,7 @@ intExpr: intExpr '+' intExpr { $$ = $1 + $3; }
         } else $$ = $1 / $3; 
         }
     | '(' intExpr ')' SEMICOLON {$$ = $2; }
-    | '-' intExpr %prec UMINUS {$$ = - $2; }
+    //| '-' intExpr %prec UMINUS {$$ = - $2; }
     | INT_NUM SEMICOLON { $$ = $1; }
     ;
 
@@ -121,12 +121,12 @@ reExpr: reExpr '+' reExpr { $$ = $1 + $3; }
         } else $$ = $1 / $3; 
         }
     | '(' reExpr ')' SEMICOLON { $$ = $2; }
-    | '-' reExpr %prec UMINUS { $$ = - $2; }
-    | double_coercion SEMICOLON { $$ = $1; }
+    //| '-' reExpr %prec UMINUS { $$ = - $2; }
+    //| double_coercion SEMICOLON { $$ = $1; }
     ;
-double_coercion: REAL_NUM { $$ = $1; }
-    | INT_NUM { $$ = (double)$1; }
-    ;
+//double_coercion: REAL_NUM { $$ = $1; }
+//    | INT_NUM { $$ = (double)$1; }
+//    ;
 
 // BOOL, CHAR, STRING
 strExpr: BOOL_VAL SEMICOLON { $$ = $1; }
@@ -136,9 +136,4 @@ return: RETURN expr SEMICOLON
     | RETURN SEMICOLON;
 %%
 
-void yyerror(const char *s) { fprintf(stderr, "%s\n", s); return 0;}
-
-int main(){
-    yyparse();
-    return 0;
-}
+void yyerror(const char *s) { fprintf(stderr, "%s\n", s); }

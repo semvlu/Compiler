@@ -75,18 +75,37 @@ extern int yydebug;
     SEMICOLON = 276,               /* SEMICOLON  */
     COLON = 277,                   /* COLON  */
     PRINTL = 278,                  /* PRINTL  */
-    BOOL_VAL = 279,                /* BOOL_VAL  */
-    CHAR_VAL = 280,                /* CHAR_VAL  */
-    STRING = 281,                  /* STRING  */
-    INT_NUM = 282,                 /* INT_NUM  */
-    REAL_NUM = 283,                /* REAL_NUM  */
-    EQ = 284,                      /* EQ  */
-    NEQ = 285,                     /* NEQ  */
-    GEQ = 286,                     /* GEQ  */
-    LEQ = 287,                     /* LEQ  */
-    GT = 288,                      /* GT  */
-    LT = 289,                      /* LT  */
-    UMINUS = 290                   /* UMINUS  */
+    PLUS = 279,                    /* PLUS  */
+    MINUS = 280,                   /* MINUS  */
+    MULT = 281,                    /* MULT  */
+    DIV = 282,                     /* DIV  */
+    ASSIGN = 283,                  /* ASSIGN  */
+    OPERATOR = 284,                /* OPERATOR  */
+    LETTER = 285,                  /* LETTER  */
+    DIGIT = 286,                   /* DIGIT  */
+    LRB = 287,                     /* LRB  */
+    RRB = 288,                     /* RRB  */
+    LSB = 289,                     /* LSB  */
+    RSB = 290,                     /* RSB  */
+    LCB = 291,                     /* LCB  */
+    RCB = 292,                     /* RCB  */
+    BSLASH = 293,                  /* BSLASH  */
+    SQUOTE = 294,                  /* SQUOTE  */
+    DQUOTE = 295,                  /* DQUOTE  */
+    QUESTION = 296,                /* QUESTION  */
+    BOOL_VAL = 297,                /* BOOL_VAL  */
+    CHAR_VAL = 298,                /* CHAR_VAL  */
+    STRING = 299,                  /* STRING  */
+    INT_NUM = 300,                 /* INT_NUM  */
+    REAL_NUM = 301,                /* REAL_NUM  */
+    EQ = 302,                      /* EQ  */
+    NEQ = 303,                     /* NEQ  */
+    GEQ = 304,                     /* GEQ  */
+    LEQ = 305,                     /* LEQ  */
+    GT = 306,                      /* GT  */
+    LT = 307,                      /* LT  */
+    UMINUS = 308,                  /* UMINUS  */
+    IFX = 309                      /* IFX  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -101,7 +120,7 @@ union YYSTYPE
     double reVal;
     char *str;
 
-#line 105 "parser.tab.h"
+#line 124 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

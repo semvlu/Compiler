@@ -8,13 +8,7 @@ int lnnr = 1;
 char idTBD[256];
 char* strsave(const char *s);
 
-enum TOKEN {
-PLUS, MINUS, MULT, DIV,
-ASSIGN, OPERATOR,
-LETTER, DIGIT,
-LRB, RRB, LSB, RSB, LCB, RCB,
-BSLASH, SQUOTE, DQUOTE, QUESTION,
-};
+
 %}
 
 /* regexes */
@@ -180,7 +174,7 @@ char* strsave(const char *s)
     strcpy(p, s);
     return p;
 }
-
+/*
 int main(int argc, char* argv[])
 {
     if(argc > 1) {
@@ -193,6 +187,7 @@ int main(int argc, char* argv[])
         tk = yylex();
     yywrap();
 }
+*/
 
 /*
 yytext: cur input tk recog by lex
